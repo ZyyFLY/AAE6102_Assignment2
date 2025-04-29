@@ -80,7 +80,7 @@ The skymask data, provided in `skymask_A1_urban.csv`, was used to describe build
 
 Positioning optimization was achieved through a combination of satellite selection and adaptive filtering. The skymask effects were considered to prioritize satellites with favorable geometry, as indicated by low Dilution of Precision (DOP) values. The average HDOP and PDOP values, both at 9.14, reflect the geometric quality of selected satellites. 
 
-![DOP Analysis](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/blob/main/images/Skyplot.fig) 
 *Figure 2: Dilution of Precision showing geometric quality.*
 
 An Extended Kalman Filter (EKF) was implemented with a state vector comprising position (x, y, z) and velocity (vx, vy, vz). The filter was enhanced with adaptive noise adjustment and outlier detection mechanisms, further improving the robustness of the system.

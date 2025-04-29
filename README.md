@@ -75,24 +75,22 @@ Each GNSS technique—DGNSS, RTK, PPP, and PPP-RTK—has its strengths and limit
 
 The skymask data, provided in `skymask_A1_urban.csv`, was used to describe building obstruction and its impact on satellite visibility. The skyplot analysis reveals that obstruction mainly affects satellites in the southern and western skies, with available satellites concentrated in the northeast direction. This information was critical for filtering out low-elevation satellites, thereby improving positioning accuracy while reducing multipath errors.
 
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/tree/main/images/Skyplot.fig)
+![image](./images/Skyplot.fig)
 *Figure 1: Satellite Skyplot with Urban Mask showing visibility constraints.*
 
 Positioning optimization was achieved through a combination of satellite selection and adaptive filtering. The skymask effects were considered to prioritize satellites with favorable geometry, as indicated by low Dilution of Precision (DOP) values. The average HDOP and PDOP values, both at 9.14, reflect the geometric quality of selected satellites. 
 
-![image](https://github.com/ZyyFLY/AAE6102-Assignment2/blob/main/images/Skyplot.fig) 
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/DOP.png) 
 *Figure 2: Dilution of Precision showing geometric quality.*
 
 An Extended Kalman Filter (EKF) was implemented with a state vector comprising position (x, y, z) and velocity (vx, vy, vz). The filter was enhanced with adaptive noise adjustment and outlier detection mechanisms, further improving the robustness of the system.
 
----
-
 ## Experimental Results
 
-### Positioning Accuracy
+1) Positioning Accuracy
 The 3D positioning error statistics reveal a mean error of 179.08 m, a standard deviation of 108.38 m, and an RMS error of 208.60 m. Directional errors show an RMS of 192.37 m in the east direction, 41.72 m in the north direction, and 69.04 m in the up direction. 
 
-![Position Error](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/Position_Error.fig) 
 *Figure 3: Position Error in East, North, and Up directions.*
 
 The horizontal error distribution indicates that most errors fall between 50–200 meters, while 3D errors are concentrated in the range of 50–250 meters. These distributions approximate a normal curve, reflecting the reliability of the positioning system.

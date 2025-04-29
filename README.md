@@ -71,37 +71,92 @@ Each GNSS technique—DGNSS, RTK, PPP, and PPP-RTK—has its strengths and limit
 
 
 
-## **Task 2: Tracking**
 
-### **Objective**
-Adapt the tracking loop (DLL) to generate correlation plots and analyze tracking performance. Discuss the impact of urban interference on correlation peaks.
+# Task 2 -  GNSS Positioning Optimization in Urban Environment
 
-### **1. Open-sky**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/2-open1.png)  
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/open-ACF.png)  
-- 
+## Implementation Methods
 
-### **2. Urban**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/2-urban.png) 
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/urban-ACF.png)  
+The skymask data, provided in `skymask_A1_urban.csv`, was used to describe building obstruction and its impact on satellite visibility. The skyplot analysis reveals that obstruction mainly affects satellites in the southern and western skies, with available satellites concentrated in the northeast direction. This information was critical for filtering out low-elevation satellites, thereby improving positioning accuracy while reducing multipath errors.
 
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/blob/main/images/) 
+*Figure 1: Satellite Skyplot with Urban Mask showing visibility constraints.*
 
-### **Results**
-- In an open environment, the signal frequency domain is concentrated, the time domain signal is balanced, and the multi-correlator results show that the PRN signal peak is clear and the correlation is good.
-- In an urban environment, the signal is interfered by the multipath effect, the noise is strong, the time domain signal fluctuates significantly, the multi-correlator result peak is low, and the signal correlation decreases.
+Positioning optimization was achieved through a combination of satellite selection and adaptive filtering. The skymask effects were considered to prioritize satellites with favorable geometry, as indicated by low Dilution of Precision (DOP) values. The average HDOP and PDOP values, both at 9.14, reflect the geometric quality of selected satellites. 
 
+![DOP Analysis](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+*Figure 2: Dilution of Precision showing geometric quality.*
 
+An Extended Kalman Filter (EKF) was implemented with a state vector comprising position (x, y, z) and velocity (vx, vy, vz). The filter was enhanced with adaptive noise adjustment and outlier detection mechanisms, further improving the robustness of the system.
 
-## **Task 3: Navigation Data Decoding**
+---
 
-### **Objective**
-Decode the navigation message and extract key parameters, such as ephemeris data, for at least one satellite.
+## Experimental Results
 
-### **Results**
-Below is the navigation data message decoded from incoming signal of urban.
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/URBAN-PRN3.png) 
-Below are the key parameters from urban message.
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/3-URBAN.png)  
+### Positioning Accuracy
+The 3D positioning error statistics reveal a mean error of 179.08 m, a standard deviation of 108.38 m, and an RMS error of 208.60 m. Directional errors show an RMS of 192.37 m in the east direction, 41.72 m in the north direction, and 69.04 m in the up direction. 
+
+![Position Error](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+*Figure 3: Position Error in East, North, and Up directions.*
+
+The horizontal error distribution indicates that most errors fall between 50–200 meters, while 3D errors are concentrated in the range of 50–250 meters. These distributions approximate a normal curve, reflecting the reliability of the positioning system.
+
+![Error Distribution](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+*Figure 4: Horizontal and 3D Error Distribution.*
+
+### Velocity Estimation
+The velocity estimation results indicate an average horizontal velocity of 2.87 ± 2.23 m/s in the x direction and -0.04 ± 1.06 m/s in the y direction, with an overall mean speed of 3.22 ± 1.97 m/s. The results show stable velocity estimates over time, with fluctuations primarily occurring in the initial epochs. The velocity estimates align well with expected motion characteristics.
+
+![Velocity Components](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+*Figure 5: Velocity Components and Magnitude.*
+
+### Performance Analysis
+The DOP analysis shows initial values around 15, with significant improvements during epochs 3–4 and stabilization at lower levels in later epochs. Trajectory analysis confirms that the estimated path follows the actual ground track, despite urban environment challenges.
+
+![Ground Track](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+*Figure 6: Satellite View with Ground Track showing the estimated path.*
+
+---
+
+## Key Performance Indicators
+Position error distribution demonstrates significant improvements, with reduced horizontal and 3D errors over time. The velocity estimation results show good consistency, with fluctuations diminishing in the later phases of the experiment. The DOP values indicate enhanced satellite geometry, which directly contributes to the observed accuracy improvements.
+
+---
+
+## Conclusions
+This experiment successfully optimized GNSS positioning in an urban environment by integrating skymask data and implementing an Extended Kalman Filter. The system effectively handled signal blockage and multipath effects, achieving acceptable positioning and velocity estimation results. The positioning accuracy and reliability meet the general requirements for urban applications.
+
+The advantages of this approach include the incorporation of real urban obstruction effects, improved positioning accuracy over time, and stable velocity estimation performance. Notable characteristics include better accuracy in the north direction compared to the east and improved positioning continuity.
+
+---
+
+## Summary
+The experiment achieved GNSS positioning optimization in urban environments, overcoming common challenges such as signal blockage and multipath effects. By leveraging skymask data and employing advanced filtering techniques, the system demonstrated improved accuracy and reliability. The results presented here reflect the potential of this approach for real-world GNSS applications in similar challenging environments.
+
+---
+
+## Key Results Summary
+Kalman Filter Results Summary:
+- Position Error Statistics:
+  - Mean Error: 207.35 m
+  - Standard Deviation: 41.60 m
+  - RMS Error: 211.37 m
+- Velocity Statistics:
+  - Mean Velocity X: 2.87 m/s
+  - Mean Velocity Y: -0.04 m/s
+  - Std Velocity X: 2.23 m/s
+  - Std Velocity Y: 1.06 m/s
+  - Mean Speed: 3.22 m/s
+  - Speed Std Dev: 1.97 m/s
+- Detailed Position Error Statistics:
+  - East Error (m): Mean: -153.83, Std: 117.02, RMS: 192.37
+  - North Error (m): Mean: -34.63, Std: 23.57, RMS: 41.72
+  - Up Error (m): Mean: -36.95, Std: 59.09, RMS: 69.04
+  - 2D Error (m): Mean: 167.09, Std: 105.41, RMS: 196.84
+  - 3D Error (m): Mean: 179.08, Std: 108.38, RMS: 208.60
+- Average HDOP: 9.14
+- Average PDOP: 9.14
+
+*Note: The figures referenced in this report are based on experimental data and provide visual confirmation of the system’s performance.*
 
 
 

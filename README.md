@@ -3,51 +3,39 @@
 # Task 1 – Differential GNSS Positioning
 
 ### **1. Differential GNSS (DGNSS)**
-#### **Overview**
 DGNSS improves accuracy by using a reference station to calculate and broadcast corrections to users.
-
 #### **Pros**
 - **Improved Accuracy**: Achieves sub-meter precision, better than standalone GNSS.
 - **Low Complexity**: Requires a single reference station, making it simpler than RTK or PPP.
 - **Wide Coverage**: Effective for regional corrections.
-
 #### **Cons**
 - **Limited Precision**: Insufficient for centimeter-level requirements.
 - **Dependency on Reference Stations**: Requires dense station networks.
 - **Communication Burden**: Needs a continuous data link.
 
 ### **2. Real-Time Kinematic (RTK)**
-#### **Overview**
 RTK resolves carrier-phase ambiguities with corrections from a nearby reference station, achieving centimeter-level accuracy.
-
 #### **Pros**
 - **High Precision**: Provides real-time centimeter accuracy, ideal for precise applications like autonomous driving.  
 - **Proven Reliability**: Widely used in various fields.
-
 #### **Cons**
 - **Short Baseline Limitation**: Effective only near reference stations (within 10–20 km).  
 - **High Communication Overhead**: Requires stable data links.
 - **Lack of Flexibility**: Limited by the availability of nearby reference stations.  
 
-
 ### **3. Precise Point Positioning (PPP)**
-#### **Overview**
 PPP uses precise satellite corrections and a single receiver, eliminating the need for nearby reference stations.
-
 #### **Pros**
 - **Global Coverage**: Operates anywhere with GNSS signals.  
 - **Independence**: Does not rely on reference stations, maintaining accuracy over long distances.  
 - **Privacy**: User coordinates are not shared with servers, unlike RTK.  
-
 #### **Cons**
 - **Long Convergence Times**: Requires 15–30 minutes for high precision.  
 - **Moderate Accuracy for Smartphones**: Limited to decimeter or sub-meter levels due to noisy observations.  
 - **Urban Challenges**: Performance degrades in urban canyons or dense forests.  
 
 ### **4. PPP-RTK**
-#### **Overview**
 PPP-RTK combines PPP and RTK to deliver fast, high-precision positioning using corrections from a reference network.
-
 #### **Pros**
 - **Centimeter-Level Accuracy**: Matches RTK's precision while maintaining PPP’s global coverage.  
 - **Fast Convergence**: Achieves rapid initialization compared to PPP.  
@@ -79,7 +67,6 @@ Each GNSS technique—DGNSS, RTK, PPP, and PPP-RTK—has its strengths and limit
 ---
 
 ### **References**
-
 1. Cheng S, Wang F, Li G, et al. Single-frequency multi-GNSS PPP-RTK for smartphone rapid centimeter-level positioning [J]. *IEEE Sensors Journal*, 2023, 23(18): 21553-21561.  
 2. Li X, Huang J, Li X, et al. Review of PPP–RTK: Achievements, challenges, and opportunities [J]. *Satellite Navigation*, 2022, 3(1): 28.
 

@@ -69,16 +69,13 @@ Each GNSS technique—DGNSS, RTK, PPP, and PPP-RTK—has its strengths and limit
 2. Li X, Huang J, Li X, et al. Review of PPP–RTK: Achievements, challenges, and opportunities [J]. *Satellite Navigation*, 2022, 3(1): 28.
 
 
-
-
-
 # Task 2 -  GNSS Positioning Optimization in Urban Environment
 
 ## Implementation Methods
 
 The skymask data, provided in `skymask_A1_urban.csv`, was used to describe building obstruction and its impact on satellite visibility. The skyplot analysis reveals that obstruction mainly affects satellites in the southern and western skies, with available satellites concentrated in the northeast direction. This information was critical for filtering out low-elevation satellites, thereby improving positioning accuracy while reducing multipath errors.
 
-![image](https://github.com/ZyyFLY/AAE6102-Assignment2/blob/main/images/) 
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/blob/main/images/Skyplot.fig) 
 *Figure 1: Satellite Skyplot with Urban Mask showing visibility constraints.*
 
 Positioning optimization was achieved through a combination of satellite selection and adaptive filtering. The skymask effects were considered to prioritize satellites with favorable geometry, as indicated by low Dilution of Precision (DOP) values. The average HDOP and PDOP values, both at 9.14, reflect the geometric quality of selected satellites. 

@@ -87,7 +87,7 @@ An Extended Kalman Filter (EKF) was implemented with a state vector comprising p
 
 ## Experimental Results
 
-1) Positioning Accuracy
+### 1）Positioning Accuracy
 The 3D positioning error statistics reveal a mean error of 179.08 m, a standard deviation of 108.38 m, and an RMS error of 208.60 m. Directional errors show an RMS of 192.37 m in the east direction, 41.72 m in the north direction, and 69.04 m in the up direction. 
 
 ![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/Position_Error.fig) 
@@ -98,13 +98,13 @@ The horizontal error distribution indicates that most errors fall between 50–2
 ![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/error_dis.fig) 
 *Figure 4: Horizontal and 3D Error Distribution.*
 
-### Velocity Estimation
+### 2）Velocity Estimation
 The velocity estimation results indicate an average horizontal velocity of 2.87 ± 2.23 m/s in the x direction and -0.04 ± 1.06 m/s in the y direction, with an overall mean speed of 3.22 ± 1.97 m/s. The results show stable velocity estimates over time, with fluctuations primarily occurring in the initial epochs. The velocity estimates align well with expected motion characteristics.
 
 ![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/vel.fig) 
 *Figure 5: Velocity Components and Magnitude.*
 
-### Performance Analysis
+### 3）Performance Analysis
 The DOP analysis shows initial values around 15, with significant improvements during epochs 3–4 and stabilization at lower levels in later epochs. Trajectory analysis confirms that the estimated path follows the actual ground track, despite urban environment challenges.
 
 ![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/ground.fig) 

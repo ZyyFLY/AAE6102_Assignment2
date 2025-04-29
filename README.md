@@ -107,40 +107,38 @@ Below are the key parameters from urban message.
 
 
 
-## **Task 4: Position and Velocity Estimation**
+# Task 4 – LEO Satellites for Navigation
 
-### **Objective**
-Using pseudorange measurements from tracking, implement the Weighted Least Squares (WLS) algorithm to compute the user's position and velocity.
-
-### **1. Open-sky**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/wls-open.png)  
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/open-v.png)  
-- 
-
-### **2. Urban**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/wls-urban.png) 
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/urban-v.png)  
-
-### **Results**
-- In an open environment, the weighted least squares method (WLS) is used to estimate the position and velocity. The results show that the position deviation is small, the velocity changes smoothly, the amplitude of the three-dimensional components is consistent, and the accuracy is high.
-- In an urban environment, multipath effects and occlusions cause the position deviation to increase, the velocity estimation fluctuates violently, and the amplitude is uneven, the error increases significantly, and the algorithm performance is affected.
+## Challenges of Using LEO Satellites for GNSS Navigation
+Low Earth Orbit (LEO) satellites, primarily used for communication, are gaining attention for their potential to enhance GNSS navigation. By leveraging their low altitude and large-scale constellations, LEO satellites can improve navigation signal availability, reliability, and precision. However, their use for navigation introduces unique challenges. This essay explores the main difficulties of using LEO satellites for GNSS navigation.
 
 
-## **Task 5:Kalman Filter-Based Positioning**
+### **1. Signal Frequency and Bandwidth Constraints**
+One significant challenge is the lack of available spectrum for LEO navigation signals. The L-band, heavily used by GNSS systems, has no remaining frequency resources. To ensure compatibility, LEO systems must minimize interference with GNSS signals by managing signal power and suppressing out-of-band emissions. These limitations complicate LEO system design and require careful coordination to avoid disrupting existing satellite navigation services.  
 
-### **Objective**
-Develop an Extended Kalman Filter (EKF) using pseudorange and Doppler measurements to estimate user position and velocity.
+### **2. High-Dynamic Signal Characteristics**
+The low altitude and high speed of LEO satellites result in rapid Doppler shifts and acceleration changes in navigation signals. These dynamic characteristics require ground receivers to maintain high tracking sensitivity, which complicates receiver design. Signal stability is also a challenge due to the satellites' fast movement, necessitating advanced algorithms to ensure reliable tracking.  
 
-### **1. Open-sky**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/ekf-open.png)  
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/open-v-ekf.png)  
-- 
 
-### **2. Urban**
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/ekf-urban.png) 
-![image](https://github.com/ZyyFLY/AAE6102-Assignment-1-ZhangYuanyuan/blob/main/images/urban-v-ekf.png) 
+### **3. Orbit Management and Constellation Control**
+LEO navigation systems require large constellations, often consisting of hundreds or thousands of satellites, which create operational challenges. Managing inter-satellite links, maintaining constellation stability, and optimizing ground station operations become increasingly complex. Effective mechanisms for resource allocation, fault recovery, and load balancing are essential to ensure stable and uninterrupted service.  
 
-### **Results**
--In an open environment, the Extended Kalman Filter (EKF) algorithm performs stably on position and velocity estimation, with small position changes, moderate velocity amplitude and stable fluctuations, and can effectively track user dynamics.
+### **4. Navigation Signal Error Modeling**
+LEO satellites experience unique orbital forces, such as atmospheric drag and gravity variations, which make existing GNSS error models unsuitable. Additionally, LEO navigation payloads exhibit time-varying hardware delays, requiring the development of new error models. These challenges must be addressed to deliver accurate and reliable navigation signals.  
 
--In an urban environment, due to multipath effects and occlusion, the EKF shows obvious errors, dramatic and unstable position changes, and abnormally high values ​​of velocity estimation, indicating that environmental noise has a greater impact on filter performance.
+### **5. Integration with GNSS Systems**
+LEO satellites augment GNSS systems by enhancing signal availability and providing redundancy. However, seamless integration requires aligning time and spatial references between LEO and GNSS systems. LEO satellites also serve dual roles as independent signal sources and GNSS backups, necessitating optimized system architectures for interoperability and autonomous operations.  
+
+### **6. Communication and Navigation Signal Integration**
+Integrating navigation capabilities into communication-focused LEO satellites presents technical challenges. Communication systems prioritize bandwidth and data rates, while navigation systems require signal stability and precision. Achieving this balance requires advanced signal fusion techniques and careful protocol design to meet the needs of both applications.  
+
+### **7. Challenges in Accelerating PPP Convergence**
+LEO satellites can significantly accelerate Precise Point Positioning (PPP) convergence. Simulations show that a constellation of 288 LEO satellites can reduce PPP convergence time from 7.1 minutes to 0.7 minutes. However, this improvement depends on the number of visible satellites and requires precise orbital models and real-time corrections to achieve efficient ambiguity resolution.  
+
+### **Conclusion**
+LEO satellites offer significant potential to enhance GNSS navigation by improving precision, reliability, and convergence times. They can support GNSS integrity monitoring and provide robust anti-jamming capabilities. However, challenges such as spectrum constraints, high-dynamic signal characteristics, constellation management, and system integration must be addressed. Further research and technological advancements will enable LEO satellites to play a critical role in future navigation systems.
+
+### **References**
+1. 王磊, 李德仁, 陈锐志, 等. 低轨卫星导航增强技术——机遇与挑战[J]. 中国工程科学, 2020, 22(2): 144-152.
+2. Fossa C E, Raines R A, Gunsch G H, et al. An overview of the IRIDIUM (R) low Earth orbit (LEO) satellite system[C]//Proceedings of the IEEE 1998 National Aerospace and Electronics Conference. NAECON 1998. Celebrating 50 Years (Cat. No. 98CH36185). IEEE, 1998: 152-159.
+3. Selvan K, Siemuri A, Prol F S, et al. Precise orbit determination of LEO satellites: a systematic review[J]. GPS Solutions, 2023, 27(4): 178. 

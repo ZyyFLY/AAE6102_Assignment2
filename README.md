@@ -95,39 +95,28 @@ The 3D positioning error statistics reveal a mean error of 179.08 m, a standard 
 
 The horizontal error distribution indicates that most errors fall between 50–200 meters, while 3D errors are concentrated in the range of 50–250 meters. These distributions approximate a normal curve, reflecting the reliability of the positioning system.
 
-![Error Distribution](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/error_dis.fig) 
 *Figure 4: Horizontal and 3D Error Distribution.*
 
 ### Velocity Estimation
 The velocity estimation results indicate an average horizontal velocity of 2.87 ± 2.23 m/s in the x direction and -0.04 ± 1.06 m/s in the y direction, with an overall mean speed of 3.22 ± 1.97 m/s. The results show stable velocity estimates over time, with fluctuations primarily occurring in the initial epochs. The velocity estimates align well with expected motion characteristics.
 
-![Velocity Components](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/vel.fig) 
 *Figure 5: Velocity Components and Magnitude.*
 
 ### Performance Analysis
 The DOP analysis shows initial values around 15, with significant improvements during epochs 3–4 and stabilization at lower levels in later epochs. Trajectory analysis confirms that the estimated path follows the actual ground track, despite urban environment challenges.
 
-![Ground Track](i-00000000000000000000000000000000000000xy92lqz0tg9lvs4mes5k11gwum)
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/ground.fig) 
 *Figure 6: Satellite View with Ground Track showing the estimated path.*
-
----
 
 ## Key Performance Indicators
 Position error distribution demonstrates significant improvements, with reduced horizontal and 3D errors over time. The velocity estimation results show good consistency, with fluctuations diminishing in the later phases of the experiment. The DOP values indicate enhanced satellite geometry, which directly contributes to the observed accuracy improvements.
 
----
-
 ## Conclusions
-This experiment successfully optimized GNSS positioning in an urban environment by integrating skymask data and implementing an Extended Kalman Filter. The system effectively handled signal blockage and multipath effects, achieving acceptable positioning and velocity estimation results. The positioning accuracy and reliability meet the general requirements for urban applications.
+This experiment optimized GNSS positioning in an urban environment by integrating skymask data and implementing an EKF. The system effectively handled signal blockage and multipath effects, achieving acceptable positioning and velocity estimation results. The positioning accuracy and reliability meet the general requirements for urban applications.
 
 The advantages of this approach include the incorporation of real urban obstruction effects, improved positioning accuracy over time, and stable velocity estimation performance. Notable characteristics include better accuracy in the north direction compared to the east and improved positioning continuity.
-
----
-
-## Summary
-The experiment achieved GNSS positioning optimization in urban environments, overcoming common challenges such as signal blockage and multipath effects. By leveraging skymask data and employing advanced filtering techniques, the system demonstrated improved accuracy and reliability. The results presented here reflect the potential of this approach for real-world GNSS applications in similar challenging environments.
-
----
 
 ## Key Results Summary
 Kalman Filter Results Summary:
@@ -150,8 +139,6 @@ Kalman Filter Results Summary:
   - 3D Error (m): Mean: 179.08, Std: 108.38, RMS: 208.60
 - Average HDOP: 9.14
 - Average PDOP: 9.14
-
-*Note: The figures referenced in this report are based on experimental data and provide visual confirmation of the system’s performance.*
 
 
 

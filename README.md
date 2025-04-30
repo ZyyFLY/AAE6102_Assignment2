@@ -200,58 +200,79 @@ P_{slope} =\frac{\sqrt{K^2_{1,i}+K^2_{2,i}+K^2_{3,i}}}{\sqrt{W_{ii}(1-P_{ii})}}
 ### 1. RAIM Weighted Least Squares Function
 
 ```matlab
-function [raimPos, usedSats, PL_3D, hpl, vpl, residuals, alarm] = WLS_RAIM(pseudoranges, ephUsed, approxPos, sigma)
-    N = length(pseudoranges);
-    max_iter = 2;
-    usedSats = 1:N;
-    raimPos = approxPos;
-    alarm = 0;
+ % snapshot test statistic
+          r = omc - A*x;  % Calculate the residuals
+          sse = sqrt(r' * C * r);  % Calculate the sum of squared errors
+          dof = length(current_sats) - 4;  % Degrees of freedom
 
-    for iter = 1:max_iter
-        [G, predRho] = calcDesignMatrix(ephUsed, raimPos, usedSats);
-        W = eye(length(usedSats))/sigma^2;
-        x = (G' * W * G) \ (G' * W * (pseudoranges(usedSats) - predRho));
-        raimPos = raimPos + x(1:3)';
+        % chi value
+         idx = find(chi2_table(:,1) == length(current_sats), 1);
+         if isempty(idx)
+          chi2_threshold = chi2inv(1-alpha, dof);  % Calculate chi-squared threshold
+         else
+          chi2_threshold = chi2_table(idx,2);  % Retrieve threshold from chi-squared table
+         end
 
-        res = pseudoranges(usedSats) - predRho - G * x;
-        residuals = res;
-        sres = sum((res/sigma).^2);
-        dof = length(usedSats) - 4;
-        if dof < 1, break; end
-        threshold = chi2inv(1-1e-2, dof);
-        if sres < threshold
-            alarm = 0; break;
+        % fault detection
+         if sse > chi2_threshold
+         % find fault
+         normalized_res = abs(r) ./ sqrt(diag(inv(C)));  % Normalize residuals
+         [~, worst_sat_idx] = max(normalized_res);  % Find the satellite with the maximum normalized residual
+          worst_sat = current_sats(worst_sat_idx);
+    
+          fprintf('Fault detected (SSE=%.3f > threshold=%.3f)\n', sse, chi2_threshold);
+          fprintf('Excluding satellite %d (normalized residual=%.3f)\n', worst_sat, max(normalized_res));
+    
+        % Update satellite list
+        faulty_sats = [faulty_sats, worst_sat];  % Add the faulty satellite to the list
+        current_sats = setdiff(current_sats, worst_sat);  % Remove the faulty satellite from current satellites
         else
-            alarm = 1;
-            [~, idxmax] = max(abs(res));
-            usedSats(idxmax) = [];
-            if length(usedSats) < 4
-                warning('Less than 4 satellites for RAIM!');
-                break;
-            end
+        fprintf('RAIM validation passed (SSE=%.3f <= threshold=%.3f)\n', sse, chi2_threshold);
+        break;  % Exit the RAIM loop
         end
-    end
-
-    Q = inv(G' * W * G);
-    hpl = 5.33 * sigma * sqrt(Q(1,1) + Q(2,2));
-    vpl = 5.33 * sigma * sqrt(Q(3,3));
-    PL_3D = 5.33 * sigma * sqrt(trace(Q(1:3,1:3)));
-end
-
-function [G, predRho] = calcDesignMatrix(ephUsed, rxPos, usedSats)
-    N = length(usedSats);
-    G = zeros(N,4);
-    predRho = zeros(N,1);
-    for i = 1:N
-        satPos = ephUsed(i).satPos;
-        d = satPos - rxPos;
-        r = norm(d);
-        G(i,1:3) = -(d)/r;
-        G(i,4) = 1;
-        predRho(i) = r;
-    end
-end
 ```
+Compute the 3D protection level (PL) with a probability of false alarm (P_fa) of \(10^{-2}\) and missed detection (P_md) of \(10^{-7}\). Use a GPS pseudorange measurement sigma (σ) of 3m.
+
+```matlab
+     %  1. Calculate the projection matrix (using the current A matrix and weights)
+   
+         m = length(current_sats)+1;
+         S = (A' * C * A) \ (A' * C);
+         P = A*S;
+         
+      % 2. Calculate the 3D slope of each satellite
+         Slope_3D = zeros(m, 1);
+        for i = 1:m
+        Slope_3D(i) = sqrt(S(1,i)^2 + S(2,i)^2 + S(3,i)^2) / sqrt(P(i,i));
+       end
+      
+       Slope_3D_max = max(Slope_3D);
+
+     % 3. Get the chi-square threshold (use the same threshold table as RAIM detection)
+       idx = find(chi2_table(:,1) == m, 1);
+       if isempty(idx)
+       T = chi2inv(1-alpha, m-4);
+      else
+       T = chi2_table(idx,2);
+       end
+
+     % 4. Calculate the RMS of the position error
+      cov_xyz = inv(A' * C * A);
+      RMS_3D = sqrt(cov_xyz(1,1) + cov_xyz(2,2) + cov_xyz(3,3));
+
+    % Step 2: Compute k_md (Gaussian inverse)
+     P_md=1e-7;
+     k_md = norminv(1 - P_md/2);   % ≈ 5.33 for P_md=1e-7
+
+     k_3D = 3.0;  
+     PL = Slope_3D_max * T + k_3D * k_md ;
+
+     fprintf('Protection level calculation: PL_3D = %.2f meters (maximum slope=%.2f, RMS=%.2f)\n',...
+     PL, Slope_3D_max, RMS_3D);
+
+     fprintf('Calculate protection level: PL = %.2f meters\n', PL);
+```
+
 Evaluate GNSS integrity monitoring performance using a Stanford Chart analysis with a 3D alarm limit (AL) of 50 meters.
 
 

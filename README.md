@@ -147,17 +147,6 @@ Kalman Filter Results Summary:
 
 # Task 3 -GNSS RAIM Integrity Monitoring and Stanford Chart Analysis
  
-## Main Features and Workflow
-
-1. **Weighted Least Squares (WLS) Positioning with RAIM Fault Detection**
-2. **Computation of Protection Levels (PL, HPL, VPL) per epoch**
-3. **Batch processing for all epochs; automatic adaptation to changing satellite geometry**
-4. **Evaluation of positioning error (VPE, 3D error) against a reference (pseudo-truth or known ground truth)**
-5. **Stanford Chart plotting and APV-I (or other service) availability statistics**
-6. **Robust handling of variable satellite counts and abnormal data**
-
----
-
 ## Key Algorithms and Formulas
 
 1. Weighted Least Squares (WLS) Positioning

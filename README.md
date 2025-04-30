@@ -190,7 +190,12 @@ LEO satellites offer significant potential to enhance GNSS navigation by improvi
 3. Selvan K, Siemuri A, Prol F S, et al. Precise orbit determination of LEO satellites: a systematic review[J]. GPS Solutions, 2023, 27(4): 178. 
 
 # Task 5 – GNSS Remote Sensing: GNSS Reflectometry (GNSS-R)
-
+  Model: ChatGPT 4o
+    
+    Prompt: Based on the references provided, please describe the current status of GNSS Reflectometry (GNSS-R) applications in GNSS navigation.
+    
+    Chatroom Link (if any): [https://chatgpt.com/share/680efc0d-008c-8000-bc38-d1e5433d681f](https://poe.com/s/rd3JLbsm3gqMDLWx2OEN)
+    
 ## Introduction
 Global Navigation Satellite Systems (GNSS) are not only central to positioning and navigation but also play a transformative role in remote sensing. Among the emerging GNSS-based remote sensing techniques, GNSS Reflectometry (GNSS-R) has gained significant attention for its diverse applications in studying the Earth’s surface and atmosphere. GNSS-R utilizes the reflected signals from GNSS satellites to monitor key environmental parameters. With the advent of spaceborne GNSS-R missions, the technology has demonstrated unique advantages, including high spatial and temporal resolution, low observation cost, wide coverage, and all-weather capabilities. This essay explores the impact of GNSS-R in land remote sensing (RS), focusing on its applications, advancements, and challenges.
 

@@ -1,4 +1,4 @@
-# AAE6102_Assignment2
+# AAE6102_Assignment2_ZhangYuanyuan_23037185R
 
 # Task 1 – Differential GNSS Positioning
     Model: ChatGPT 4o

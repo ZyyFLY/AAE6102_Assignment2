@@ -145,6 +145,114 @@ Kalman Filter Results Summary:
 - Average HDOP: 9.14
 - Average PDOP: 9.14
 
+# Task 3 -GNSS RAIM Integrity Monitoring and Stanford Chart Analysis
+ 
+## Main Features and Workflow
+
+1. **Weighted Least Squares (WLS) Positioning with RAIM Fault Detection**
+2. **Computation of Protection Levels (PL, HPL, VPL) per epoch**
+3. **Batch processing for all epochs; automatic adaptation to changing satellite geometry**
+4. **Evaluation of positioning error (VPE, 3D error) against a reference (pseudo-truth or known ground truth)**
+5. **Stanford Chart plotting and APV-I (or other service) availability statistics**
+6. **Robust handling of variable satellite counts and abnormal data**
+
+---
+
+## Key Algorithms and Formulas
+
+1. Weighted Least Squares (WLS) Positioning
+
+```math
+X=(H^TWH)^{-1}H^TWZ
+```
+
+2. The WSSE can be written as
+
+```math
+WSSE=\sqrt{Z^TW(I-P)Z}
+```
+where P is the weighted projection function
+
+```math
+P=H(H^TWH)^{-1}H^TW
+```
+
+3. To detect outlier, the threshold T is given as:
+
+```math
+T(N,P_{FA})=\sqrt{Q_{\chi^2,N-4 }(1-P_{FA})}
+
+```
+where Q is the quantile function of Chi-square distribution with degree of freedom of N-4. 
+
+4. Then the protection level can be calculated by:
+
+```math
+PL=max[P_{slope}]T(N,P_{FA})+k(P_{MD})\sigma
+```
+where P\_slope is the residual slope related to the outlier:
+
+```math
+P_{slope} =\frac{\sqrt{K^2_{1,i}+K^2_{2,i}+K^2_{3,i}}}{\sqrt{W_{ii}(1-P_{ii})}}
+```
+## Main Code Structure
+
+### 1. RAIM Weighted Least Squares Function
+
+```matlab
+function [raimPos, usedSats, PL_3D, hpl, vpl, residuals, alarm] = WLS_RAIM(pseudoranges, ephUsed, approxPos, sigma)
+    N = length(pseudoranges);
+    max_iter = 2;
+    usedSats = 1:N;
+    raimPos = approxPos;
+    alarm = 0;
+
+    for iter = 1:max_iter
+        [G, predRho] = calcDesignMatrix(ephUsed, raimPos, usedSats);
+        W = eye(length(usedSats))/sigma^2;
+        x = (G' * W * G) \ (G' * W * (pseudoranges(usedSats) - predRho));
+        raimPos = raimPos + x(1:3)';
+
+        res = pseudoranges(usedSats) - predRho - G * x;
+        residuals = res;
+        sres = sum((res/sigma).^2);
+        dof = length(usedSats) - 4;
+        if dof < 1, break; end
+        threshold = chi2inv(1-1e-2, dof);
+        if sres < threshold
+            alarm = 0; break;
+        else
+            alarm = 1;
+            [~, idxmax] = max(abs(res));
+            usedSats(idxmax) = [];
+            if length(usedSats) < 4
+                warning('Less than 4 satellites for RAIM!');
+                break;
+            end
+        end
+    end
+
+    Q = inv(G' * W * G);
+    hpl = 5.33 * sigma * sqrt(Q(1,1) + Q(2,2));
+    vpl = 5.33 * sigma * sqrt(Q(3,3));
+    PL_3D = 5.33 * sigma * sqrt(trace(Q(1:3,1:3)));
+end
+
+function [G, predRho] = calcDesignMatrix(ephUsed, rxPos, usedSats)
+    N = length(usedSats);
+    G = zeros(N,4);
+    predRho = zeros(N,1);
+    for i = 1:N
+        satPos = ephUsed(i).satPos;
+        d = satPos - rxPos;
+        r = norm(d);
+        G(i,1:3) = -(d)/r;
+        G(i,4) = 1;
+        predRho(i) = r;
+    end
+end
+```
+Evaluate GNSS integrity monitoring performance using a Stanford Chart analysis with a 3D alarm limit (AL) of 50 meters.
 
 
 # Task 4 – LEO Satellites for Navigation

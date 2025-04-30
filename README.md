@@ -1,6 +1,11 @@
 # AAE6102_Assignment2
 
 # Task 1 – Differential GNSS Positioning
+    Model: ChatGPT 4o
+    
+    Prompt: Please summarize the pros and cons of the following GNSS techniques for smartphone navigation based on the literature I provide below.
+    
+    Chatroom Link (if any): [https://chatgpt.com/share/680efc0d-008c-8000-bc38-d1e5433d681f](https://poe.com/s/rd3JLbsm3gqMDLWx2OEN)
 
 ### **1. Differential GNSS (DGNSS)**
 DGNSS improves accuracy by using a reference station to calculate and broadcast corrections to users.
@@ -143,6 +148,12 @@ Kalman Filter Results Summary:
 
 
 # Task 4 – LEO Satellites for Navigation
+
+    Model: ChatGPT 4o
+    
+    Prompt: Please sort out the difficulties and challenges in navigation of low-orbit satellites mentioned in the following literature.
+    
+    Chatroom Link (if any): [https://chatgpt.com/share/680efc0d-008c-8000-bc38-d1e5433d681f](https://poe.com/s/rd3JLbsm3gqMDLWx2OEN)
 
 ## Challenges of Using LEO Satellites for GNSS Navigation
 Low Earth Orbit (LEO) satellites, primarily used for communication, are gaining attention for their potential to enhance GNSS navigation. By leveraging their low altitude and large-scale constellations, LEO satellites can improve navigation signal availability, reliability, and precision. However, their use for navigation introduces unique challenges. This essay explores the main difficulties of using LEO satellites for GNSS navigation.

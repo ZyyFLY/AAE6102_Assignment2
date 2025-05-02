@@ -80,7 +80,7 @@ Each GNSS technique—DGNSS, RTK, PPP, and PPP-RTK—has its strengths and limit
 
 The skymask data, provided in `skymask_A1_urban.csv`, was used to describe building obstruction and its impact on satellite visibility. The skyplot analysis reveals that obstruction mainly affects satellites in the southern and western skies, with available satellites concentrated in the northeast direction. This information was critical for filtering out low-elevation satellites, thereby improving positioning accuracy while reducing multipath errors.
 
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/Skyplot.fig)
+![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/Skymask.png)
 *Figure 1: Satellite Skyplot with Urban Mask showing visibility constraints.*
 
 Positioning optimization was achieved through a combination of satellite selection and adaptive filtering. The skymask effects were considered to prioritize satellites with favorable geometry, as indicated by low Dilution of Precision (DOP) values. The average HDOP and PDOP values, both at 9.14, reflect the geometric quality of selected satellites. 
@@ -95,23 +95,23 @@ An Extended Kalman Filter (EKF) was implemented with a state vector comprising p
 ### 1）Positioning Accuracy
 The 3D positioning error statistics reveal a mean error of 179.08 m, a standard deviation of 108.38 m, and an RMS error of 208.60 m. Directional errors show an RMS of 192.37 m in the east direction, 41.72 m in the north direction, and 69.04 m in the up direction. 
 
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/Position_Error.fig) 
+![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/Position_Error.png) 
 *Figure 3: Position Error in East, North, and Up directions.*
 
 The horizontal error distribution indicates that most errors fall between 50–200 meters, while 3D errors are concentrated in the range of 50–250 meters. These distributions approximate a normal curve, reflecting the reliability of the positioning system.
 
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/error_dis.fig) 
+![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/error_dis.png) 
 *Figure 4: Horizontal and 3D Error Distribution.*
 
 ### 2）Velocity Estimation
 The velocity estimation results indicate an average horizontal velocity of 2.87 ± 2.23 m/s in the x direction and -0.04 ± 1.06 m/s in the y direction, with an overall mean speed of 3.22 ± 1.97 m/s. The results show stable velocity estimates over time, with fluctuations primarily occurring in the initial epochs. The velocity estimates align well with expected motion characteristics.
 
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/vel.fig) 
+![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/vel.png) 
 *Figure 5: Velocity Components and Magnitude.*
 
 ### 3）Performance Analysis
 The DOP analysis shows initial values around 15, with significant improvements during epochs 3–4 and stabilization at lower levels in later epochs. Trajectory analysis confirms that the estimated path follows the actual ground track, despite urban environment challenges.
-![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/ground.fig) 
+![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/ground.png) 
 *Figure 6: Satellite View with Ground Track showing the estimated path.*
 
 ## Key Performance Indicators

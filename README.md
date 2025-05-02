@@ -264,6 +264,9 @@ Compute the 3D protection level (PL) with a probability of false alarm (P_fa) of
 
 Evaluate GNSS integrity monitoring performance using a Stanford Chart analysis with a 3D alarm limit (AL) of 50 meters.
 
+![image](https://github.com/ZyyFLY/AAE6102-Assignment2/tree/main/images/stanford.png) 
+*Figure 7: Stanford Chart analysis.*
+
 
 # Task 4 – LEO Satellites for Navigation
 

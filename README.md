@@ -266,7 +266,7 @@ Evaluate GNSS integrity monitoring performance using a Stanford Chart analysis w
 
 ![image](https://github.com/ZyyFLY/AAE6102_Assignment2/blob/main/images/stanford.png) 
 *Figure 7: Stanford Chart analysis.*
-
+The chart shows most points concentrated below 30m protection level and below 10m position error, with no points falling in the hazardously misleading information region.
 
 # Task 4 – LEO Satellites for Navigation
 
